@@ -23,9 +23,11 @@ This repo is designed to be utilized in COMSOL (Computational Solutions) with th
     Build All
 4)
     Developer Tab <- Java Methods <- RC add java class
-    name it ...
-    paste over everything with MazeApp_Method.java
-    click save inshalla it compiles
+    name it. Must exactly match method call
+    paste each method into a new method file in COMSOL (repeat for each of the 6 files)
+    save
+    inshalla accepts everything
+    
 5)
     RC model <- add form
     RC form <- input field X4 for each field {

@@ -1,6 +1,8 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.util.Scanner;
+import java.util.List;
 
 public class MazeGeneratorVisual {
     
@@ -46,7 +48,6 @@ public class MazeGeneratorVisual {
         showVisual(maze, hallwayThickness, actualWidth, actualHeight);
     }
     
-    
     static void showVisual(int[][] grid, double cellSize, double totalW, double totalH) {
         JFrame frame = new JFrame("Maze Preview - " + grid[0].length + "x" + grid.length);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,6 +75,24 @@ public class MazeGeneratorVisual {
                 g2d.setColor(Color.WHITE);
                 g2d.fillRect(0, 0, getWidth(), getHeight());
                 
+
+                // Solve and draw solution path
+                List<int[]> path = mazeSolver.solve(grid);
+                if (!path.isEmpty()) {
+                    g2d.setColor(new Color(255, 80, 0));  // Orange solution line
+                    g2d.setStroke(new BasicStroke(Math.max(1.5f, (float)(cellSize * scale * 0.35f))));
+                    for (int i = 0; i < path.size() - 1; i++) {
+                        int[] a = path.get(i);
+                        int[] b = path.get(i + 1);
+                        // Convert grid [x,y] to screen coords (note the y-flip)
+                        int x1 = offsetX + (int)((a[0] + 0.5) * cellSize * scale);
+                        int y1 = offsetY + (int)((h - 1 - a[1] + 0.5) * cellSize * scale);
+                        int x2 = offsetX + (int)((b[0] + 0.5) * cellSize * scale);
+                        int y2 = offsetY + (int)((h - 1 - b[1] + 0.5) * cellSize * scale);
+                        g2d.drawLine(x1, y1, x2, y2);
+                }
+                g2d.setStroke(new BasicStroke(1)); // reset
+            }
                 // Draw walls (blue)
                 g2d.setColor(new Color(40, 40, 100));
                 for (int y = 0; y < h; y++) {

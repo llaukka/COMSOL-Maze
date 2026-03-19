@@ -1,4 +1,5 @@
-public class generateGeometry {
+
+public class generateGeometryOld {
     public static void build(Model model, int[][] maze, double cellSize) {
 
         String compTag = "comp1";
